@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+gem "shotgun"
+gem "sinatra"
+gem "httpclient"
+gem "rack-test"
+gem "rspec"
