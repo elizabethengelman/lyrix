@@ -1,25 +1,40 @@
 require "net/http"
+
 class MusixClient
-  MUSIX_ROOT_URL = "http://api.musixmatch.com/ws/1.1/"
-  API_KEY = "key"
-  attr_reader :uri
+  MUSIX_ROOT_URL = "http://api.musixmatch.com/"
+  VERSION = "/ws/1.1"
+  ARTIST_SEARCH = "/artist.search?"
+  TRACK_SEARCH = "/track.search?"
+  API_KEY = "d123cc8eb0cb6c5348c5ba7073159052"
 
   def initialize
-    #only want to create one Net::HTTP instance so we can re-use the connection?
-    @uri = URI.parse(MUSIX_ROOT_URL)
-
-    http = Net::HTTP.new(uri.host, uri.port)
+    uri = URI(MUSIX_ROOT_URL)
+    @http = Net::HTTP.new uri.host, uri.port
   end
 
-  def get_song(song_id)
-    Net::HTTP::Get.new(create_request_uri(song_id))
-  end
-
-  def create_request_uri(song_id)
-    encoded_api_key = URI.encode_www_form({"apikey" => API_KEY})
-    uri.request_uri + song_id + "?" + encoded_api_key
+  def search_by_artist(artist_name)
+    request = create_get_request(ARTIST_SEARCH, {"q_artist" => artist_name })
+    @http.request(request)
   end
 
 
+  def search_by_track_title(track_title)
+    request = create_get_request(TRACK_SEARCH, {"q_track" => track_title })
+    @http.request(request)
+  end
 
+  def search_by_artist_and_track(artist_name, track_title)
+    request = create_get_request(TRACK_SEARCH, { "q_artist" => artist_name,
+                                                 "q_track" => track_title })
+    @http.request(request)
+  end
+
+  private
+
+  def create_get_request(search_action, params)
+    encoded_params = URI.encode_www_form(params.merge(
+                                           { "apikey" => API_KEY}))
+    url = VERSION + search_action + encoded_params
+    Net::HTTP::Get.new url
+  end
 end
