@@ -5,3 +5,5 @@ gem "sinatra"
 gem "httpclient"
 gem "rack-test"
 gem "rspec"
+gem "pry"
+gem 'rack-flash3'

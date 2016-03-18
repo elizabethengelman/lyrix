@@ -12,6 +12,21 @@ class MusixClient
     @http = Net::HTTP.new uri.host, uri.port
   end
 
+  def search(params)
+    artist_name = params["artist-name"]
+    track_title = params["track-title"]
+
+    if artist_name && track_title
+      search_by_artist_and_track(artist_name, track_title)
+    elsif artist_name
+      search_by_artist( params["artist-name"] )
+    elsif track_title
+      search_by_track_title( params["track-title"] )
+    end
+  end
+
+  private
+
   def search_by_artist(artist_name)
     request = create_get_request(ARTIST_SEARCH, {"q_artist" => artist_name })
     @http.request(request)
