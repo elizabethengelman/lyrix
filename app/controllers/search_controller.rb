@@ -4,13 +4,21 @@ class SearchController < ApplicationController
   end
 
   post "/" do
-    if !params.empty?
+    @params = params
+    if !empty_params?( params )
       musix_client = MusixClient.new
-      musix_client.search( params )
+      response = musix_client.search( params )
+      @results = ResultFormatter.new( response ).format
 
       erb :search
     else
-      flash[:notice] = "Please enter either an artist name or track title"
+      erb :error
     end
+  end
+
+  private
+
+  def empty_params?( params )
+    params.all? { |key, value| value.empty? }
   end
 end
