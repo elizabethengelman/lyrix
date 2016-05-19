@@ -10,17 +10,20 @@
     <input type="submit">
 </form>
 
-<table>
-  <th>Artist</th>
-  <th>Song Name</th>
-  <th>Explicit Lyrics?</th>
 
-<% @results.each do |result|%>
-  <tr>
-    <td><%= result["artist_name"] %></td>
-    <td><%= result["track_name"] %></td>
-    <td><%= result["explicit"] %></td>
-  </tr>
-<% end %>
+  need to change this to only display results if they exist
+<%if @results%>
+  <table>
+    <th>Artist</th>
+    <th>Song Name</th>
+    <th>Explicit Lyrics?</th>
+  <% @results.each do |result|%>
+    <tr>
+      <td><%= result["artist_name"] %></td>
+      <td><%= result["track_name"] %></td>
+      <td><%= result["explicit"] %></td>
+    </tr>
+  <% end %>
 </table>
+<% end %>
 
