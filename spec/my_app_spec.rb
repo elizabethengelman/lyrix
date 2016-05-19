@@ -15,7 +15,7 @@ describe MyApp do
 
     expect( last_response.status ).to eq 200
     #expect( last_response.body ).to include( "The Beatles" )
- end
+  end
 
   it "creates a new MusixClient instance" do
     post "/search", "artist-name" => "The Doors"

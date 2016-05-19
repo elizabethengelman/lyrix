@@ -10,6 +10,17 @@
     <input type="submit">
 </form>
 
-<%= @results %>
-<%= params %>
+<table>
+  <th>Artist</th>
+  <th>Song Name</th>
+  <th>Explicit Lyrics?</th>
+
+<% @results.each do |result|%>
+  <tr>
+    <td><%= result["artist_name"] %></td>
+    <td><%= result["track_name"] %></td>
+    <td><%= result["explicit"] %></td>
+  </tr>
+<% end %>
+</table>
 

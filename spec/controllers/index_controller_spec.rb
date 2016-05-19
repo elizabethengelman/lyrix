@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MainController do
+describe MyApp do
   it "allows access to the index" do
     get "/"
 

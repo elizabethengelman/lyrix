@@ -1,7 +1,8 @@
 require "rack/test"
 require "rspec"
 
-Dir[File.join(File.dirname(__FILE__), "../app/*/*.rb")].each { |file| require file }
+Dir[File.join(File.dirname(__FILE__), "../helpers/*.rb")].each { |file| require file }
+require Dir[File.join(File.dirname(__FILE__), "../my_app.rb")].first
 
 ENV["RACK_ENV"] = "test"
 
