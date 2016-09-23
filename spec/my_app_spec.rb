@@ -7,7 +7,7 @@ describe MyApp do
   before :each do
     allow( MusixClient ).to receive( :new ).and_return( musix_client )
     allow( ResultFormatter ).to receive( :new ).and_return( result_formatter )
-    allow( result_formatter ).to receive( :format )
+    allow( result_formatter ).to receive( :search_results_table )
   end
 
   it "sends a request with the search params" do
@@ -45,6 +45,6 @@ describe MyApp do
 
     expect( ResultFormatter ).to have_received( :new ).
       with( response )
-    expect( result_formatter ).to have_received( :format )
+    expect( result_formatter ).to have_received( :search_results_table )
   end
 end

@@ -8,9 +8,15 @@ class ResultFormatter
     @parsed_response = JSON.parse(response.body)
   end
 
-  def format
+  def search_results_table
+    build_results_table
+  end
+
+  def parsed_results
     track_list.map do |track_listing|
-      track_listing["track"].select{ |key, value| FIELDS_TO_DISPLAY.include?(key) }
+      track_listing["track"].select do |key, value|
+        FIELDS_TO_DISPLAY.include?(key)
+      end
     end
   end
 

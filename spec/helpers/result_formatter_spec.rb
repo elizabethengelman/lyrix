@@ -23,22 +23,18 @@ describe ResultFormatter do
 
   let( :formatter ) { described_class.new( response ) }
 
-  before :each do
-  end
-
   it "extracts the track-list from the response" do
     track_list = formatter.track_list
     expect( track_list.first["track"] ).
       to include  "track_name" => "Back to December"
   end
 
-  it "creates a list of track names and their artists to display" do
+  it "creates a list of track names, artists and explicit lyric flag" do
     expected = [{ "track_name" => "Back to December",
                   "explicit" => 0,
                   "artist_name"=> "Taylor Swift"}]
-    expect( formatter.format ).to eq expected
+    expect( formatter.parsed_results ).to eq expected
   end
-
 end
 #  xit "parses the json response" do
 #    allow( JSON ).to receive( :parse )

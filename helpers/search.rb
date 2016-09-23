@@ -3,7 +3,7 @@ class Search
     if !empty_params?(search_params)
       musix_client = MusixClient.new
       response = musix_client.search(search_params)
-      ResultFormatter.new(response).format
+      ResultFormatter.new(response).search_results_table
     end
   end
 
