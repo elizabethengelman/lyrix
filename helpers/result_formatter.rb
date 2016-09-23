@@ -20,6 +20,20 @@ class ResultFormatter
     end
   end
 
+  def convert_explicit_lyric_flag(flag)
+    flag == 1
+  end
+
+  def build_results_table
+    table = "<table> <th>Artist</th> <th>Song Name</th> <th>Explicit Lyrics?</th>"
+    parsed_results.each do |result|
+      table += "<tr><td>#{result["artist_name"]}</td>" +
+               "<td>#{result["track_name"]}</td>" +
+               "<td>#{convert_explicit_lyric_flag(result["explicit"])}</td></tr>"
+    end
+    table
+  end
+
   def track_list
     parsed_response.fetch("message").
       fetch("body").fetch("track_list")

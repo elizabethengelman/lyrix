@@ -1,4 +1,4 @@
-<form action="/search" method="POST">
+<form action="/search" method="POST" id="search_form">
   <p>
     <label for="artist-name">Artist Name</label>
     <input type="text" name="artist-name">
@@ -10,18 +10,28 @@
     <input type="submit">
 </form>
 
-<%if @results%>
-  <table>
-    <th>Artist</th>
-    <th>Song Name</th>
-    <th>Explicit Lyrics?</th>
-  <% @results.each do |result|%>
-    <tr>
-      <td><%= result["artist_name"] %></td>
-      <td><%= result["track_name"] %></td>
-      <td><%= result["explicit"] %></td>
-    </tr>
-  <% end %>
+<table id="results">
 </table>
-<% end %>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function () {
+    $('#search_form').submit( function(e) {
+      e.preventDefault();
+
+      $.ajax({
+        type: "POST",
+        url: "/search",
+        data: $(this).serialize(),
+        success: function(response) {
+          $("#results").html(response);
+        },
+        error: function(response) {
+        $("#results").html( "Sorry something went wrong with that request."
+                          + "Please try again later");
+        }});
+    });
+  });
+
+</script>
 

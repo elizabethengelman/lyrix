@@ -35,6 +35,12 @@ describe ResultFormatter do
                   "artist_name"=> "Taylor Swift"}]
     expect( formatter.parsed_results ).to eq expected
   end
+
+  it "converts explicit lyric flag to true or false" do
+    expect(formatter.convert_explicit_lyric_flag(0)).to eq false
+    expect(formatter.convert_explicit_lyric_flag(1)).to eq true
+  end
+
 end
 #  xit "parses the json response" do
 #    allow( JSON ).to receive( :parse )

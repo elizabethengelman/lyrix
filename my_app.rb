@@ -1,4 +1,5 @@
 require "sinatra/base"
+require 'json'
 
 Tilt.register Tilt::ERBTemplate, "html.erb"
 
@@ -17,9 +18,9 @@ class MyApp < Sinatra::Base
 
   post "/search" do
     if @results = Search.call( params )
-      erb :search
+      { :results => @results, :status => "success" }.to_json
     else
-      erb :error
+      { :status => "error" }.to_json
     end
   end
 end
