@@ -1,15 +1,15 @@
 class Search
-  def self.call( search_params )
-    if !empty_params?( search_params )
+  def self.call(search_params)
+    if !empty_params?(search_params)
       musix_client = MusixClient.new
-      response = musix_client.search( search_params )
-      ResultFormatter.new( response ).format
+      response = musix_client.search(search_params)
+      ResultFormatter.new(response).format
     end
   end
 
   private
 
-  def self.empty_params?( params )
+  def self.empty_params?(params)
     params.all? { |key, value| value.empty? }
   end
 end
